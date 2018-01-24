@@ -4,17 +4,17 @@ function Triangles (ctx, canvas, angle) {
   ctx.angle *= (2 * Math.PI) / 360;
   if (ctx.angle > 2 * Math.PI)  { ctx.angle = 0; }
 
-  ctx.size = 800;
-  ctx.firstColor = 'red';
-  ctx.secondColor = 'blue';
+  ctx.size = 1000;
+  ctx.firstColor = '#420000';
+  ctx.secondColor = '#590000';
   ctx.currentColor = ctx.firstColor;
 
   for(ctx.i = 0; ctx.i < 360; ctx.i += 360 / 6) {
-
-    if(ctx.i % 2 === 0) {
-        if (ctx.currentColor == ctx.ctfirstColor)  { ctx.currentColor = ctx.secondColor; }
-        else  { ctx.currentColor = ctx.firstColor; }
-    }
+   
+    if(ctx.i % 2 == 0) {
+      if (ctx.currentColor == ctx.firstColor) ctx.currentColor = ctx.secondColor;
+      else ctx.currentColor = ctx.firstColor;
+     }
     
     ctx.radPosX = ((ctx.i - 360 / 6) * 2 * Math.PI) / 360;
 
@@ -39,10 +39,9 @@ function Triangles (ctx, canvas, angle) {
     ctx.stroke();
       
     // the fill color
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = ctx.currentColor;
     ctx.fill();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    angle += 1,5;
 }
 
 }

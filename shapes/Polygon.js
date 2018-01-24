@@ -2,6 +2,7 @@ function Polygon (posx, posy, radius, sides, color, ctx, rotation, canvas) {
 
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
+  this.rotation = rotation;
 
   var rad = (2*Math.PI)/sides;
 
@@ -10,8 +11,8 @@ function Polygon (posx, posy, radius, sides, color, ctx, rotation, canvas) {
   
   ctx.beginPath();
       for(i = 0; i < sides; i++ ){
-      var x = posx + radius * Math.cos( rad*i );
-      var y = posy + radius * Math.sin( rad*i );
+      var x = posx + radius * Math.cos( rad*i);
+      var y = posy + radius * Math.sin( rad*i);
       ctx.lineTo(x, y);
       }
 
@@ -21,3 +22,7 @@ function Polygon (posx, posy, radius, sides, color, ctx, rotation, canvas) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
 };
+
+Polygon.prototype.update = function () {
+  this.rotation += 5;
+}
