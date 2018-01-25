@@ -33,6 +33,3 @@ Polygon.prototype.draw = function () {
 
 };
 
-Polygon.prototype.update = function () {
-  this.rotation += 5;
-}

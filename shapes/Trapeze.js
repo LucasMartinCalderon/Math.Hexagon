@@ -10,7 +10,8 @@ function Trapeze (center, distance, ctx, initial_offset, speed, player) {
   this.markForDelete = false;
   this.speed = speed;
   this.player = player;
-  this.numbers = [];
+  var aux = [0,1,2,3,4,5];
+  this.numbers = _.sampleSize(aux, Math.ceil(Math.random() * 5));
 }
 
 Trapeze.prototype.update = function() {
@@ -22,23 +23,23 @@ Trapeze.prototype.update = function() {
 }
 
 Trapeze.prototype.checkCollision = function(){
-  if (50 >= this.distance) {
-    console.log("Touched!");
-}
+  if (this.distance < 50) {
+    var player = this.player;
+    for (var i = 0; i < this.numbers.length; i++) {
+      if (player.initial_offset >= this.numbers[i] * Math.PI / 3 && player.initial_offset <= this.numbers[i] * Math.PI / 3 + Math.PI / 3) {
+        console.log("Entra!");
+        this.gameOver();
+      }
+    }
+  }
 }
 
-Trapeze.prototype.createRandomArray = function () {
-  var aux = [0,1,2,3,4,5];
-  this.numbers = _.sampleSize(aux, Math.ceil(Math.random() * 5));
-}
 
 Trapeze.prototype.draw = function() {
-
-  this.createRandomArray();
-
+  
   for (var i = 0; i < this.numbers.length; i++) {
 
-    var angle = ;
+    var angle = Math.PI * this.numbers[i] / 3;
 
     x1 = this.center.x + Math.cos( Math.PI / 3 + angle) * this.distance;
     y1 = this.center.y + Math.sin( Math.PI / 3 + angle) * this.distance;
@@ -61,4 +62,9 @@ Trapeze.prototype.draw = function() {
     this.ctx.closePath();
     this.ctx.fill();
   }
-}
+};
+
+Trapeze.prototype.gameOver = function () {
+  alert("YOU LOOSE!!!");
+};
+

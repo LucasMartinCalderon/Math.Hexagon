@@ -13,7 +13,6 @@ function Player (ctx, center, initial_offset) {
 Player.prototype.move = function (key) {
   switch (key) {
     case 37:
-    this.aux = this.initial_offset;
     this.initial_offset -= this.playerSpeed + 0.5;
     break;
     case 39:
@@ -34,6 +33,22 @@ Player.prototype.draw = function () {
   this.ctx.fill();
 };
 
+var seconds = 0;
+
+Player.prototype.counter = function () {
+  setInterval(function() {
+    seconds++;
+  }, 1000);
+  return seconds;
+}
+
+Player.prototype.score = function () {
+  this.ctx.save();
+  this.ctx.fillStyle = 'white';
+  this.ctx.font = '20px Arial';
+  this.ctx.fillText('Time: ' + this.counter(), 20, 40);
+  this.ctx.restore();
+}
 
 
 
