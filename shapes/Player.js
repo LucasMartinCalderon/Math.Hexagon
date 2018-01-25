@@ -38,9 +38,9 @@ var seconds = 0;
 
 Player.prototype.counter = function () {
   setInterval(function() {
-    seconds++;
+    this.seconds++;
   }, 1000);
-  return seconds;
+  return this.seconds;
 }
 
 Player.prototype.score = function () {

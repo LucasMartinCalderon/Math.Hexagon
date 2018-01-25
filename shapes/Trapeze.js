@@ -23,7 +23,7 @@ Trapeze.prototype.update = function() {
 }
 
 Trapeze.prototype.degToDeg = function (deg) {
-  var reminder = deg % 360;
+  var reminder = Math.abs(deg % 360);
   if (reminder >= 360) {
     degToDeg(reminder);
   } else {
@@ -35,9 +35,6 @@ Trapeze.prototype.checkCollision = function() {
   if (this.distance <= 50) {
     for (var i = 0; i < this.numbers.length; i++) {
       if (this.degToDeg(this.player.initial_offset) >= this.degToDeg(this.numbers[i] * 60) && this.degToDeg(this.player.initial_offset) <= this.degToDeg(this.numbers[i] * 60 + 60)) {
-        console.log("Entra!");
-        console.log(this.degToDeg(this.player.initial_offset));
-        console.log(this.degToDeg(this.numbers[i] * 60))
         this.gameOver(this.degToDeg(this.numbers[i] * 60));
       }
     }
@@ -75,6 +72,6 @@ Trapeze.prototype.draw = function() {
 };
 
 Trapeze.prototype.gameOver = function () {
-  alert("YOU LOSE!!!" + 'YOUR SCORE IS: ' + this.player.seconds);
+  alert("YOU LOSE!!!" + ' YOUR SCORE IS: ' + this.player.seconds);
 };
 
