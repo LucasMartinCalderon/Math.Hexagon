@@ -1,7 +1,7 @@
 function Player (ctx, center, initial_offset) {
   this.ctx = ctx;
   this.initial_offset = initial_offset;
-  this.color = 
+  this.color ;
   this.posX;
   this.posY;
   this.primeang = (initial_offset * 2 * Math.PI) / 360;
@@ -31,7 +31,7 @@ Player.prototype.draw = function () {
   this.ctx.fillStyle = this.color;
   this.ctx.beginPath();
   this.ctx.arc(this.posX, this.posY, 5, 0, Math.PI*2);
-  this.ctx.fill(); // fill() is to fill in the circle, stroke() is for a empty circle
+  this.ctx.fill();
 };
 
 

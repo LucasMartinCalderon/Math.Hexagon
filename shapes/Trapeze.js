@@ -1,4 +1,4 @@
-function Trapeze(center, distance, ctx, initial_offset, speed, player) {
+function Trapeze (center, distance, ctx, initial_offset, speed, player) {
   this.center = center;
   this.distance = distance;
   this.height = Math.floor(Math.random() * 50);
@@ -10,6 +10,7 @@ function Trapeze(center, distance, ctx, initial_offset, speed, player) {
   this.markForDelete = false;
   this.speed = speed;
   this.player = player;
+  this.numbers = [];
 }
 
 Trapeze.prototype.update = function() {
@@ -21,13 +22,9 @@ Trapeze.prototype.update = function() {
 }
 
 Trapeze.prototype.checkCollision = function(){
-  if (50 === this.distance) {
+  if (50 >= this.distance) {
     console.log("Touched!");
-    if (this.player.initial_offset > this.initial_offset && this.player.initial_offset < this.initial_offset + Math.PI / 3) {
-      console.log('Game Over!');
-      //GAME OVER
-    }
-  }
+}
 }
 
 Trapeze.prototype.draw = function() {
@@ -57,8 +54,4 @@ Trapeze.prototype.draw = function() {
     this.ctx.closePath();
     this.ctx.fill();
   }
-}
-
-Trapeze.prototype.gameOver = function () {
-  //HOW TO DO IT? 
 }
