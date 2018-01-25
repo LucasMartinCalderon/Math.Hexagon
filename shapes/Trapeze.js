@@ -22,12 +22,23 @@ Trapeze.prototype.update = function() {
   }
 }
 
-Trapeze.prototype.checkCollision = function(){
+Trapeze.prototype.degToDeg = function (deg) {
+  var reminder = deg % 360;
+  if (reminder >= 360) {
+    degToDeg(reminder);
+  } else {
+    return reminder;
+  }
+}
+
+Trapeze.prototype.checkCollision = function() {
   if (this.distance <= 50) {
     for (var i = 0; i < this.numbers.length; i++) {
-      if (this.player.initial_offset >= this.numbers[i] * 60 && this.player.initial_offset <= this.numbers[i] * 60 + 60) {
+      if (this.degToDeg(this.player.initial_offset) >= this.degToDeg(this.numbers[i] * 60) && this.degToDeg(this.player.initial_offset) <= this.degToDeg(this.numbers[i] * 60 + 60)) {
         console.log("Entra!");
-        this.gameOver();
+        console.log(this.degToDeg(this.player.initial_offset));
+        console.log(this.degToDeg(this.numbers[i] * 60))
+        this.gameOver(this.degToDeg(this.numbers[i] * 60));
       }
     }
   }
@@ -64,6 +75,6 @@ Trapeze.prototype.draw = function() {
 };
 
 Trapeze.prototype.gameOver = function () {
-  alert("YOU LOOSE!!!");
+  alert("YOU LOSE!!!" + 'YOUR SCORE IS: ' + this.player.seconds);
 };
 

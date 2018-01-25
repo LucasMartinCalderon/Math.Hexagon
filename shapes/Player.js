@@ -8,6 +8,7 @@ function Player (ctx, center, initial_offset) {
   this.center = center;
   this.distance;
   this.playerSpeed = 30;
+  this.seconds;
 }
 
 Player.prototype.move = function (key) {
