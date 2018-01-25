@@ -27,11 +27,18 @@ Trapeze.prototype.checkCollision = function(){
 }
 }
 
+Trapeze.prototype.createRandomArray = function () {
+  var aux = [0,1,2,3,4,5];
+  this.numbers = _.sampleSize(aux, Math.ceil(Math.random() * 5));
+}
+
 Trapeze.prototype.draw = function() {
 
-  for (var i = 0; i < this.sides; i++) {
+  this.createRandomArray();
 
-    var angle = i * this.randomSeed * Math.PI / 3 + ( 2 * Math.PI * this.initial_offset) / 360;
+  for (var i = 0; i < this.numbers.length; i++) {
+
+    var angle = ;
 
     x1 = this.center.x + Math.cos( Math.PI / 3 + angle) * this.distance;
     y1 = this.center.y + Math.sin( Math.PI / 3 + angle) * this.distance;

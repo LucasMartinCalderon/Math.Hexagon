@@ -27,6 +27,7 @@ function Game() {
 
 
 Game.prototype.createObstacle = function(){
+  
   this.obstacles.push(new Trapeze(this.center, 600, this.ctx, 0, this.obstacleSpeed, this.player));
   this.obstacleCount++;
   if(this.obstacleCount > 20){
