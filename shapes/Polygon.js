@@ -1,25 +1,35 @@
-function Polygon (posx, posy, radius, sides, color, ctx, rotation, canvas) {
+function Polygon (center, ctx, initial_offset) {
+  this.center = center;
+  this.ctx = ctx;
+  this.radius = 10;
+  this.sides = 6;
+  this.color;
+  this.initial_offset = initial_offset;
+}
 
-  ctx.fillStyle = color;
-  ctx.strokeStyle = color;
-  this.rotation = rotation;
+Polygon.prototype.draw = function () {
 
-  var rad = (2*Math.PI)/sides;
+  this.color = '#80010';
+  this.ctx.fillStyle = this.color;
+  this.ctx.strokeStyle = this.color;
 
-  ctx.translate(canvas.width/2, canvas.height/2);
-  ctx.rotate((2 * Math.PI * rotation) / 360);
+  var rad = (2*Math.PI) / 6;
+
+  this.ctx.translate(this.center.x, this.center.y);
+  this.ctx.rotate((2 * Math.PI * this.initial_offset) / 360);
   
-  ctx.beginPath();
-      for(i = 0; i < sides; i++ ){
-      var x = posx + radius * Math.cos( rad*i);
-      var y = posy + radius * Math.sin( rad*i);
-      ctx.lineTo(x, y);
-      }
+  this.ctx.beginPath();
 
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  for (var i = 0; i < 6; i++ ) {
+    var x = this.center.x + this.radius * Math.cos(rad * i);
+    var y = this.center.y + this.radius * Math.sin(rad * i);
+    this.ctx.lineTo(x, y);
+  }
+
+  this.ctx.closePath();
+  this.ctx.fill();
+  this.ctx.stroke();
+  this.ctx.setTransform(1, 0, 0, 1, 0, 0);
 
 };
 

@@ -1,7 +1,11 @@
 window.onload = function () {
 
   var game = new Game();
- 
+
+  setInterval(function() {
+    game.update();
+  }, 1000 / 60);
+  
   $(document).keydown(function(e){
     switch(e.keyCode){
       case 37: // izquierda
@@ -13,4 +17,5 @@ window.onload = function () {
     }
   });
 
-}
+};
+

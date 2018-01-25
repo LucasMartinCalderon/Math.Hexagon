@@ -1,31 +1,64 @@
-function _degtorad(ang) {
-  return ang * 2 * Math.PI / 360;
+function Trapeze(center, distance, ctx, initial_offset, speed, player) {
+  this.center = center;
+  this.distance = distance;
+  this.height = Math.floor(Math.random() * 50);
+  this.color = "#"+((1<<24)*Math.random()|0).toString(16);
+  this.ctx = ctx;
+  this.sides = Math.floor(Math.random()*6);
+  this.randomSeed = Math.ceil(Math.random()*10);
+  this.initial_offset = initial_offset;
+  this.markForDelete = false;
+  this.speed = speed;
+  this.player = player;
 }
 
-function Trapeze(offsetX, offsetY, distance, height, color, ctx, ang, sides, number) {
-  this.distance = distance;
-  for (var i = 0; i < sides; i++) {
-    var angle =  number * Math.PI / 3 * i + _degtorad(ang);
-
-    x1 = offsetX + Math.cos( Math.PI / 3 + angle) * distance;
-    y1 = offsetY + Math.sin( Math.PI / 3 + angle) * distance;
-
-    x2 = offsetX + Math.cos( Math.PI / 3 + angle + Math.PI / 3) * distance;
-    y2 = offsetY + Math.sin( Math.PI / 3 + angle + Math.PI / 3) * distance;
-
-    x3 = offsetX + Math.cos( Math.PI / 3 + angle + Math.PI / 3) * (distance + height);
-    y3 = offsetY + Math.sin( Math.PI / 3 + angle + Math.PI / 3) * (distance + height);
-
-    x4 = offsetX + Math.cos( Math.PI / 3 + angle) * (distance + height);
-    y4 = offsetY + Math.sin( Math.PI / 3 + angle) * (distance + height);
-
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineTo(x3, y3);
-    ctx.lineTo(x4, y4);
-    ctx.closePath();
-    ctx.fill();
+Trapeze.prototype.update = function() {
+  if(this.distance >= 0){
+    this.distance -= this.speed;
+  }else{
+    this.markForDelete = true;
   }
+}
+
+Trapeze.prototype.checkCollision = function(){
+  if (50 === this.distance) {
+    console.log("Touched!");
+    if (this.player.initial_offset > this.initial_offset && this.player.initial_offset < this.initial_offset + Math.PI / 3) {
+      console.log('Game Over!');
+      //GAME OVER
+    }
+  }
+}
+
+Trapeze.prototype.draw = function() {
+
+  for (var i = 0; i < this.sides; i++) {
+
+    var angle = i * this.randomSeed * Math.PI / 3 + ( 2 * Math.PI * this.initial_offset) / 360;
+
+    x1 = this.center.x + Math.cos( Math.PI / 3 + angle) * this.distance;
+    y1 = this.center.y + Math.sin( Math.PI / 3 + angle) * this.distance;
+
+    x2 = this.center.x + Math.cos( Math.PI / 3 + angle + Math.PI / 3) * this.distance;
+    y2 = this.center.y + Math.sin( Math.PI / 3 + angle + Math.PI / 3) * this.distance;
+
+    x3 = this.center.x + Math.cos( Math.PI / 3 + angle + Math.PI / 3) * (this.distance + this.height);
+    y3 = this.center.y + Math.sin( Math.PI / 3 + angle + Math.PI / 3) * (this.distance + this.height);
+
+    x4 = this.center.x + Math.cos( Math.PI / 3 + angle) * (this.distance + this.height);
+    y4 = this.center.y + Math.sin( Math.PI / 3 + angle) * (this.distance + this.height);
+
+    this.ctx.fillStyle = this.color;
+    this.ctx.beginPath();
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(x2, y2);
+    this.ctx.lineTo(x3, y3);
+    this.ctx.lineTo(x4, y4);
+    this.ctx.closePath();
+    this.ctx.fill();
+  }
+}
+
+Trapeze.prototype.gameOver = function () {
+  //HOW TO DO IT? 
 }

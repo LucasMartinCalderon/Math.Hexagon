@@ -1,44 +1,40 @@
-function Player (ctx, canvas, angle) {
+function Player (ctx, center, initial_offset) {
   this.ctx = ctx;
-  this.ang = angle;
-  this.distanceX;
-  this.color;
+  this.initial_offset = initial_offset;
+  this.color = 
   this.posX;
   this.posY;
-  this.canvas = canvas;
-  this.primeang = (angle * 2 * Math.PI) / 360;
+  this.primeang = (initial_offset * 2 * Math.PI) / 360;
+  this.center = center;
+  this.distance;
+  this.playerSpeed = 30;
 }
 
 Player.prototype.move = function (key) {
   switch (key) {
     case 37:
-    this.aux = this.ang;
-    this.ang -= 40 + 0.5;
+    this.aux = this.initial_offset;
+    this.initial_offset -= this.playerSpeed + 0.5;
     break;
     case 39:
-    this.ang += 40;
+    this.initial_offset += this.playerSpeed;
     break;
   }
   this.draw();
 }
 
 Player.prototype.draw = function () {
-  this.distanceX = 45;
-  this.distanceY = 45;
+  this.distance = 50;
   this.color = 'white';
-  this.posX = this.canvas.width / 2 + this.distanceX * Math.cos ( (this.ang * 2 * Math.PI) / 360);
-  this.posY = this.canvas.height / 2 + this.distanceY * Math.sin ( (this.ang * 2 * Math.PI) / 360);
+  this.posX = this.center.x + this.distance * Math.cos ( (this.initial_offset * 2 * Math.PI) / 360);
+  this.posY = this.center.y + this.distance * Math.sin ( (this.initial_offset * 2 * Math.PI) / 360);
   this.ctx.fillStyle = this.color;
   this.ctx.beginPath();
-  this.ctx.moveTo(this.posX + 6 * (1 - Math.sin(this.primeang)), this.posY - 6 * (Math.cos(this.primeang)));
-  this.ctx.lineTo(this.posX  + 6 * (1 - Math.sin(this.primeang)),this.posY + 6 * ( 1 - Math.cos(this.primeang)));
-  this.ctx.lineTo(this.posX + 12 * (1 - Math.sin(this.primeang)), this.posY);
-  this.ctx.fill();
-}
+  this.ctx.arc(this.posX, this.posY, 5, 0, Math.PI*2);
+  this.ctx.fill(); // fill() is to fill in the circle, stroke() is for a empty circle
+};
 
-Player.prototype.collide = function () {
-  
-}
+
 
 
 
