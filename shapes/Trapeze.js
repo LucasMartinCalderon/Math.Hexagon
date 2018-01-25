@@ -23,10 +23,9 @@ Trapeze.prototype.update = function() {
 }
 
 Trapeze.prototype.checkCollision = function(){
-  if (this.distance < 50) {
-    var player = this.player;
+  if (this.distance <= 50) {
     for (var i = 0; i < this.numbers.length; i++) {
-      if (player.initial_offset >= this.numbers[i] * Math.PI / 3 && player.initial_offset <= this.numbers[i] * Math.PI / 3 + Math.PI / 3) {
+      if (this.player.initial_offset >= this.numbers[i] * 60 && this.player.initial_offset <= this.numbers[i] * 60 + 60) {
         console.log("Entra!");
         this.gameOver();
       }
