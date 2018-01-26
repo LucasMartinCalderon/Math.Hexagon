@@ -10,7 +10,7 @@ function Trapeze (center, distance, ctx, initial_offset, speed, player) {
   this.markForDelete = false;
   this.speed = speed;
   this.player = player;
-  this.aux = [0,1,3];
+  this.aux = [0,1,2,3,4,5];
   this.numbers = _.sampleSize(this.aux, Math.ceil(Math.random() * 5));
   this.hit = [false,false,false,false,false,false]
 
@@ -45,15 +45,17 @@ Trapeze.prototype.draw = function() {
     //0
     if(y1>440&&y1<450)this.hit[0] = true;
     //1
-    if(this.distance==50) {console.log(y1,x1)}
-    // //2
-    // if(y1>410&&y1<420)this.hit[2] = true;
-    // //3
+    if(y1>440&&y1<450)this.hit[1] = true;
+    // // if(this.distance==50) {console.log(y1,x1)}
+    // // //2
+    if(y1>410&&y1<420)this.hit[2] = true;
+    // // //3
     if(y1>340&&y1<350)this.hit[3] = true;
-    // //4
-    // if(y1>440&&y1<450)this.hit = true;
-    // //5
-    // if(y1>440&&y1<450)this.hit = true;
+    // // //4
+    if(y1>440&&y1<450)this.hit[4] = true;
+    // // //5
+    if(y1>440&&y1<450)this.hit[5] = true;
+
 
 
     x2 = this.center.x + Math.cos( Math.PI / 3 + angle + Math.PI / 3) * this.distance;

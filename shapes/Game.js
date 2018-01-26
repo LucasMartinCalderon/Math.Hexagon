@@ -61,8 +61,8 @@ Game.prototype.update = function(){
     if(e.hit[1]&&this.player.ballState[1])console.log("te di en el 1")
     if(e.hit[2]&&this.player.ballState[2])console.log("te di en el 2")
     if(e.hit[3]&&this.player.ballState[3])console.log("te di en el 3")
-    // if(e.hit&&this.player.ballState[4])console.log("te di")
-    // if(e.hit&&this.player.ballState[4])console.log("te di")
+    if(e.hit[4]&&this.player.ballState[4])console.log("te di en el 4")
+    if(e.hit[5]&&this.player.ballState[5])console.log("te di en el 5")
   });
   
   this.obstacles = this.obstacles.filter(function(e){
@@ -70,3 +70,5 @@ Game.prototype.update = function(){
   });
   
 };
+
+

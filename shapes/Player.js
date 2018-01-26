@@ -76,9 +76,9 @@ var seconds = 0;
 
 Player.prototype.counter = function() {
   setInterval(function() {
-    this.seconds++;
+    seconds++;
   }, 1000);
-  return this.seconds;
+  return seconds;
 };
 
 Player.prototype.score = function() {
