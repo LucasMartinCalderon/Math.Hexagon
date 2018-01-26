@@ -6,15 +6,16 @@ function radToDeg(a){
   return a * 180 / Math.PI;
 }
 
-
-
 window.onload = function () {
 
+  var audio = new Audio('hexagon_music.mp3');
+  audio.play();
+  audio.volume = 0.3;
   var game = new Game();
 
   setInterval(function() {
     //console.log(game.obstaclePosition)
-      game.update();
+      game.update(audio);
   }, 1000 / 60);
   
   $(document).keydown(function(e){

@@ -16,7 +16,7 @@ function Game() {
   this.hexagon = new Polygon (this.center, this.ctx, 0);
   this.player = new Player (this.ctx, this.center, 0);
   var that = this;
-  this.isLoadCanvas = true;
+  this.seconds = 0;
 
   // Every 1.5 seconds create an obstacle
   setInterval(function(){
@@ -40,35 +40,46 @@ Game.prototype.createObstacle = function(){
 };
 
 
+Game.prototype.score = function () {
+  var that = this;
+  setInterval(function() {
+    that.seconds++;
+  }, 1000);
+  this.ctx.font = "20px Monaco";
+  this.ctx.fillStyle = "#0095DD";
+  this.ctx.fillText("SCORE: " + this.seconds, 40, 60);
+}
 
-Game.prototype.update = function(){
+
+Game.prototype.update = function(audio){
 
   this.ctx.clearRect(0, 0, this.canvas.width, 
-  this.canvas.height);
+  this.canvas.height);  
   
   this.background.draw();
   this.hexagon.draw();
   this.player.update();
   this.player.draw();
+  this.score();
 
   var ball_angle = radToDeg(this.player.angle) % 360;
   if(ball_angle < 0){
     ball_angle = 360 + ball_angle;
-  }
+  }  
   this.obstacles.forEach((e) =>{
     e.draw();
     e.update();
     var result = e.checkCollision(ball_angle, this.player.distance);
     if(result){
-      //alert('GAME END');
-      console.log("GAME END");
-    }
-  });
+      // alert('GAME END');
+      audio.pause();
+      console.log("GAME END. YOUR SCORE IS: " + this.seconds);
+    }  
+  });  
   
   this.obstacles = this.obstacles.filter(function(e){
     return !e.markForDelete;    
-  });
-  
-};
+  });  
+};  
 
 
