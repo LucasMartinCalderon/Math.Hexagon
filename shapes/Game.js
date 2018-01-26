@@ -11,7 +11,7 @@ function Game() {
   this.createObstacle();
   this.obstacleSpeed = 2;
   this.obstacleCount = 0;
-  this.obstacleInterval = 1000;
+  this.obstacleInterval = 3000;
   this.background = new Background (this.ctx, 0, this.center);
   this.hexagon = new Polygon (this.center, this.ctx, 0);
   this.player = new Player (this.ctx, this.center, 0);
@@ -30,14 +30,12 @@ function Game() {
 
 
 Game.prototype.createObstacle = function(){
-  // console.log("create")
-  // console.log(new Date())
   this.obstacles.push(new Trapeze (this.center, 600, this.ctx, 0, this.obstacleSpeed, this.player));
   this.obstacleCount++;
   if(this.obstacleCount > 20){
-    // this.obstacleSpeed += 0.1;
-    // this.obstacleInterval -= 8;
-    //this.player.playerSpeed += 0.1;
+    this.obstacleSpeed += 0.1;
+    this.obstacleInterval -= 8;
+    this.player.playerSpeed += 0.1;
   }
 };
 
@@ -50,19 +48,21 @@ Game.prototype.update = function(){
   
   this.background.draw();
   this.hexagon.draw();
+  this.player.update();
   this.player.draw();
-  this.player.score();
-  this.player.checkCollision();
 
+  var ball_angle = radToDeg(this.player.angle) % 360;
+  if(ball_angle < 0){
+    ball_angle = 360 + ball_angle;
+  }
   this.obstacles.forEach((e) =>{
     e.draw();
     e.update();
-    if(e.hit[0]&&this.player.ballState[0])console.log("te di en el 0")
-    if(e.hit[1]&&this.player.ballState[1])console.log("te di en el 1")
-    if(e.hit[2]&&this.player.ballState[2])console.log("te di en el 2")
-    if(e.hit[3]&&this.player.ballState[3])console.log("te di en el 3")
-    if(e.hit[4]&&this.player.ballState[4])console.log("te di en el 4")
-    if(e.hit[5]&&this.player.ballState[5])console.log("te di en el 5")
+    var result = e.checkCollision(ball_angle, this.player.distance);
+    if(result){
+      //alert('GAME END');
+      console.log("GAME END");
+    }
   });
   
   this.obstacles = this.obstacles.filter(function(e){
