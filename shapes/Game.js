@@ -47,6 +47,10 @@ Game.prototype.score = function () {
   }, 1000);
   this.ctx.font = "20px Monaco";
   this.ctx.fillStyle = "#0095DD";
+  if (this.seconds >= 10000) {
+    console.log('enrta');
+    $('#game').addClass('canvas');
+  }
   this.ctx.fillText("SCORE: " + this.seconds, 40, 60);
 }
 
