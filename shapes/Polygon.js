@@ -1,35 +1,24 @@
-function Polygon (center, ctx, initial_offset) {
+function Polygon (center, ctx, angle) {
   this.center = center;
   this.ctx = ctx;
   this.radius = 10;
-  this.sides = 6;
-  this.color;
-  this.initial_offset = initial_offset;
+  this.color = '#a38728';
+  this.angle = angle;
+  this.size = 40;
 }
 
 Polygon.prototype.draw = function () {
 
-  this.color = '#80010';
-  this.ctx.fillStyle = this.color;
-  this.ctx.strokeStyle = this.color;
-
-  var rad = (2*Math.PI) / 6;
-
-  this.ctx.translate(this.center.x, this.center.y);
-  this.ctx.rotate((2 * Math.PI * this.initial_offset) / 360);
-  
   this.ctx.beginPath();
-
-  for (var i = 0; i < 6; i++ ) {
-    var x = this.center.x + this.radius * Math.cos(rad * i);
-    var y = this.center.y + this.radius * Math.sin(rad * i);
-    this.ctx.lineTo(x, y);
+  this.ctx.moveTo(this.center.x + this.size * Math.cos(0), this.center.y + this.size * Math.sin(0));
+  
+  for (var i = 0; i < 7; i++) {
+    this.ctx.lineTo(this.center.x + this.size * Math.cos(i * 2 * Math.PI / 6), this.center.y + this.size * Math.sin(i * 2 * Math.PI / 6));
   }
-
-  this.ctx.closePath();
+  
+  this.ctx.fillStyle = "#a38728";
   this.ctx.fill();
-  this.ctx.stroke();
-  this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+  
+
 
 };
-

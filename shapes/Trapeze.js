@@ -23,7 +23,7 @@ Trapeze.prototype.update = function() {
 }
 
 Trapeze.prototype.checkCollision = function(angle, distance){
-  if(this.distance === distance){
+  if(this.distance <= distance && this.distance >= distance - 10){
     for (var i = 0; i < this.numbers.length; i++) {
       var angleStart = radToDeg(Math.PI/3  * this.numbers[i]);
       var angleEnd = angleStart + radToDeg(Math.PI/3);

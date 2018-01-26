@@ -32,10 +32,10 @@ function Game() {
 Game.prototype.createObstacle = function(){
   this.obstacles.push(new Trapeze (this.center, 600, this.ctx, 0, this.obstacleSpeed, this.player));
   this.obstacleCount++;
-  if(this.obstacleCount > 20){
-    this.obstacleSpeed += 0.1;
-    this.obstacleInterval -= 8;
-    this.player.playerSpeed += 0.1;
+  if(this.obstacleCount > 5){
+    this.obstacleSpeed += 0.2;
+    this.obstacleInterval -= 100;
+    this.player.playerSpeed += 0.2;
   }
 };
 
@@ -53,15 +53,15 @@ Game.prototype.score = function () {
 
 Game.prototype.update = function(audio){
 
+  var angle = 0;
   this.ctx.clearRect(0, 0, this.canvas.width, 
   this.canvas.height);  
   
   this.background.draw();
-  this.hexagon.draw();
   this.player.update();
   this.player.draw();
   this.score();
-
+  
   var ball_angle = radToDeg(this.player.angle) % 360;
   if(ball_angle < 0){
     ball_angle = 360 + ball_angle;
@@ -71,15 +71,16 @@ Game.prototype.update = function(audio){
     e.update();
     var result = e.checkCollision(ball_angle, this.player.distance);
     if(result){
-      // alert('GAME END');
+      alert("GAME END. YOUR SCORE IS: " + this.seconds);
       audio.pause();
-      console.log("GAME END. YOUR SCORE IS: " + this.seconds);
     }  
   });  
+  this.hexagon.draw();
   
   this.obstacles = this.obstacles.filter(function(e){
     return !e.markForDelete;    
   });  
+
 };  
 
 
