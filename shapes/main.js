@@ -3,7 +3,8 @@ window.onload = function () {
   var game = new Game();
 
   setInterval(function() {
-    game.update();
+    //console.log(game.obstaclePosition)
+      game.update();
   }, 1000 / 60);
   
   $(document).keydown(function(e){

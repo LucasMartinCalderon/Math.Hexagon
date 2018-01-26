@@ -16,10 +16,11 @@ function Game() {
   this.hexagon = new Polygon (this.center, this.ctx, 0);
   this.player = new Player (this.ctx, this.center, 0);
   var that = this;
-  
+  this.isLoadCanvas = true;
 
   // Every 1.5 seconds create an obstacle
   setInterval(function(){
+    this.Trapeze
     that.createObstacle();
     that.background.update();
   },this.obstacleInterval);
@@ -29,12 +30,14 @@ function Game() {
 
 
 Game.prototype.createObstacle = function(){
+  // console.log("create")
+  // console.log(new Date())
   this.obstacles.push(new Trapeze (this.center, 600, this.ctx, 0, this.obstacleSpeed, this.player));
   this.obstacleCount++;
   if(this.obstacleCount > 20){
-    this.obstacleSpeed += 0.1;
-    this.obstacleInterval -= 8;
-    this.player.playerSpeed += 0.1;
+    // this.obstacleSpeed += 0.1;
+    // this.obstacleInterval -= 8;
+    //this.player.playerSpeed += 0.1;
   }
 };
 
@@ -49,10 +52,17 @@ Game.prototype.update = function(){
   this.hexagon.draw();
   this.player.draw();
   this.player.score();
-  this.obstacles.forEach(function(e) {
+  this.player.checkCollision();
+
+  this.obstacles.forEach((e) =>{
     e.draw();
     e.update();
-    e.checkCollision();
+    if(e.hit[0]&&this.player.ballState[0])console.log("te di en el 0")
+    if(e.hit[1]&&this.player.ballState[1])console.log("te di en el 1")
+    if(e.hit[2]&&this.player.ballState[2])console.log("te di en el 2")
+    if(e.hit[3]&&this.player.ballState[3])console.log("te di en el 3")
+    // if(e.hit&&this.player.ballState[4])console.log("te di")
+    // if(e.hit&&this.player.ballState[4])console.log("te di")
   });
   
   this.obstacles = this.obstacles.filter(function(e){

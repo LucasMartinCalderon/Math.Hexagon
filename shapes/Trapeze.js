@@ -10,9 +10,12 @@ function Trapeze (center, distance, ctx, initial_offset, speed, player) {
   this.markForDelete = false;
   this.speed = speed;
   this.player = player;
-  var aux = [0,1,2,3,4,5];
-  this.numbers = _.sampleSize(aux, Math.ceil(Math.random() * 5));
+  this.aux = [0,1,3];
+  this.numbers = _.sampleSize(this.aux, Math.ceil(Math.random() * 5));
+  this.hit = [false,false,false,false,false,false]
+
 }
+
 
 Trapeze.prototype.update = function() {
   if(this.distance >= 0){
@@ -31,17 +34,6 @@ Trapeze.prototype.degToDeg = function (deg) {
   }
 }
 
-Trapeze.prototype.checkCollision = function() {
-  if (this.distance <= 50) {
-    for (var i = 0; i < this.numbers.length; i++) {
-      if (this.degToDeg(this.player.initial_offset) >= this.degToDeg(this.numbers[i] * 60) && this.degToDeg(this.player.initial_offset) <= this.degToDeg(this.numbers[i] * 60 + 60)) {
-        this.gameOver(this.degToDeg(this.numbers[i] * 60));
-      }
-    }
-  }
-}
-
-
 Trapeze.prototype.draw = function() {
   
   for (var i = 0; i < this.numbers.length; i++) {
@@ -50,6 +42,19 @@ Trapeze.prototype.draw = function() {
 
     x1 = this.center.x + Math.cos( Math.PI / 3 + angle) * this.distance;
     y1 = this.center.y + Math.sin( Math.PI / 3 + angle) * this.distance;
+    //0
+    if(y1>440&&y1<450)this.hit[0] = true;
+    //1
+    if(this.distance==50) {console.log(y1,x1)}
+    // //2
+    // if(y1>410&&y1<420)this.hit[2] = true;
+    // //3
+    if(y1>340&&y1<350)this.hit[3] = true;
+    // //4
+    // if(y1>440&&y1<450)this.hit = true;
+    // //5
+    // if(y1>440&&y1<450)this.hit = true;
+
 
     x2 = this.center.x + Math.cos( Math.PI / 3 + angle + Math.PI / 3) * this.distance;
     y2 = this.center.y + Math.sin( Math.PI / 3 + angle + Math.PI / 3) * this.distance;
@@ -72,6 +77,6 @@ Trapeze.prototype.draw = function() {
 };
 
 Trapeze.prototype.gameOver = function () {
-  alert("YOU LOSE!!!" + ' YOUR SCORE IS: ' + this.player.seconds);
+  // game.isLoadCanvas()
 };
 
