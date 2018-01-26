@@ -9,9 +9,9 @@ function Game() {
   };
   this.obstacles = [];
   this.createObstacle();
-  this.obstacleSpeed = 2;
+  this.obstacleSpeed = 3;
   this.obstacleCount = 0;
-  this.obstacleInterval = 3000;
+  this.obstacleInterval = 2000;
   this.background = new Background (this.ctx, 0, this.center);
   this.hexagon = new Polygon (this.center, this.ctx, 0);
   this.player = new Player (this.ctx, this.center, 0);
@@ -30,11 +30,11 @@ function Game() {
 
 
 Game.prototype.createObstacle = function(){
-  this.obstacles.push(new Trapeze (this.center, 600, this.ctx, 0, this.obstacleSpeed, this.player));
+  this.obstacles.push(new Trapeze (this.center, 600, this.ctx, 0, this.obstacleSpeed));
   this.obstacleCount++;
   if(this.obstacleCount > 5){
-    this.obstacleSpeed += 0.2;
-    this.obstacleInterval -= 100;
+    this.obstacleSpeed += 0.5;
+    this.obstacleInterval -= 200;
     this.player.playerSpeed += 0.2;
   }
 };

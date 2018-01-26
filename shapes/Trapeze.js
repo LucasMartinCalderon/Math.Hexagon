@@ -5,7 +5,6 @@ function Trapeze (center, distance, ctx, initial_offset, speed) {
   this.color = "#"+((1<<24)*Math.random()|0).toString(16);
   this.ctx = ctx;
   this.sides = Math.floor(Math.random()*6);
-  this.randomSeed = Math.ceil(Math.random()*10);
   this.initial_offset = initial_offset;
   this.markForDelete = false;
   this.speed = speed;
