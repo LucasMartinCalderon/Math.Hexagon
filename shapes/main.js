@@ -1,4 +1,3 @@
-
 function degToRad(a){
   return a * 2*Math.PI / 360;
 }
@@ -21,10 +20,10 @@ window.onload = function () {
   $(document).keydown(function(e){
     switch(e.keyCode){
       case 37: // izquierda
-        game.player.move(1);
+        game.player.move(-1);
         break;
         case 39: // derecha
-        game.player.move(-1);
+        game.player.move(1);
         break;
     }
   });

@@ -11,8 +11,6 @@ function Trapeze (center, distance, ctx, initial_offset, speed) {
   this.speed = speed;
   var aux = [0,1,2,3,4,5];
   this.numbers = _.sampleSize(aux, Math.ceil(Math.random() * 5));
-  //this.numbers = [5]  
-
 }
 
 
